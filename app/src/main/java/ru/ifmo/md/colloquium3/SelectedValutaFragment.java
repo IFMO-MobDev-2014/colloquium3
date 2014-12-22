@@ -23,7 +23,7 @@ public class SelectedValutaFragment extends Fragment {
     private String valutaName;
     private double valutaValue;
     private double valutaBalance;
-    private double runBalance;
+    private double rubBalance;
 
     public SelectedValutaFragment() {
         super();
@@ -36,11 +36,15 @@ public class SelectedValutaFragment extends Fragment {
     private void updateBalanceAndValue(View view) {
         this.valutaValue = MoneyManager.getValue(getActivity().getContentResolver(), valutaName);
         this.valutaBalance = MoneyManager.getBalance(getActivity().getContentResolver(), valutaName);
-        this.runBalance = MoneyManager.getBalance(getActivity().getContentResolver(), "RUB");
+        this.rubBalance = MoneyManager.getBalance(getActivity().getContentResolver(), "RUB");
+
+        valutaBalance = ((double)((long)(valutaBalance * 100.0))) / 100.0;
+        rubBalance = ((double)((long)(rubBalance * 100.0))) / 100.0;
+
 
         ((TextView)view.findViewById(R.id.selected_valuta_balance)).setText(Double.toString(valutaBalance));
         ((TextView)view.findViewById(R.id.selected_valuta_value)).setText(Double.toString(valutaValue));
-        ((TextView)view.findViewById(R.id.rub_balance)).setText(Double.toString(runBalance));
+        ((TextView)view.findViewById(R.id.rub_balance)).setText(Double.toString(rubBalance));
 
     }
 
