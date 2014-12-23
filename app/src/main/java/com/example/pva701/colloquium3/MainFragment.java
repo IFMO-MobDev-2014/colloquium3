@@ -78,11 +78,11 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             courseList.setAdapter(adapter);
             return;
         }
-
-        adapter.clear();
+        int i = 0;
         while (cursor.moveToNext()) {
             Course course = CurrencyDbHelper.CourseCursor.getCourse(cursor);
-            adapter.add(course);
+            adapter.getItem(i).setVal(course.getVal());
+            ++i;
         }
         adapter.notifyDataSetChanged();
     }
