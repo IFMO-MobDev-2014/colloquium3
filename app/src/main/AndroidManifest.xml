@@ -16,6 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="ru.ifmo.colloquium3.contentprovider"
+            android:name=".db.MyContentProvider"
+            android:exported="false" />
+
+        <service android:name=".CourseServer" />
     </application>
 
 </manifest>
