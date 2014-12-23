@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.example.pva701.colloquium3.provider.CurrencyProvider"
+            android:authorities="com.example.pva701.colloquium3.provider.CurrencyProvider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <service android:name="com.example.pva701.colloquium3.UpdateService" />
     </application>
 
 </manifest>
