@@ -16,7 +16,7 @@ import ru.eugene.coloqq3.db.MoneyDataSource;
  */
 public class CourseService extends IntentService {
     private static final long TIME1 = 1000;
-    private static final String NOTIFICATION = "ayxayyayay";
+    public static final String NOTIFICATION = "ayxayyayay";
     private int countTime = 0;
     private double[] count;
     private int[] id;

@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Build;
@@ -28,14 +29,18 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
     Context context;
     TextView curCount;
 
-    public static final BroadcastReceiver receiver = new BroadcastReceiver() {
+    BroadcastReceiver receiver = new BroadcastReceiver() {
 
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onReceive(Context context, Intent intent) {
-//            Cursor cursor = context.getContentResolver().query(BlackProvider.CONTENT_URI_COUNT, MoneyDataSource)
-//            String t = cursor.getString(cursor.getColumnIndex(CountDataSource.COLUMN_NAME));
-//            String cur_count = cursor.getString(cursor.getColumnIndex(MoneyDataSource.COLUMN_COURSE));
+            Cursor cursor = context.getContentResolver().query(BlackProvider.CONTENT_URI_MONEY, MoneyDataSource.getProjection(),
+                    MoneyDataSource.COLUMN_NAME + "=?", new String[]{cur_name}, null);
 
+            cursor.moveToFirst();
+            Log.i("LOG", cursor.getCount() + "a");
+            double t = cursor.getDouble(cursor.getColumnIndex(MoneyDataSource.COLUMN_COURSE));
+            curCount.setText(Double.toString(t));
         }
     };
 
@@ -49,6 +54,18 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
         curCount = ((TextView) findViewById(R.id.cur_course));
 
         getLoaderManager().initLoader(1, null, this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, new IntentFilter(CourseService.NOTIFICATION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @Override
