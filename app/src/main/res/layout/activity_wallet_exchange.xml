@@ -1,0 +1,74 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="ru.ifmo.colloquium3.WalletExchangeActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_wallet_name"
+        android:text="@string/current_wallet"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_wallet_amount"
+        android:text="@string/current_amount"
+        android:layout_below="@+id/current_wallet_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rubles_name"
+        android:text="@string/roubles"
+        android:layout_above="@+id/rubles_amount"
+        android:layout_alignRight="@+id/rubles_amount"
+        android:layout_alignEnd="@+id/rubles_amount" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rubles_amount"
+        android:text="@string/rubles_amount"
+        android:layout_alignTop="@+id/current_wallet_amount"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/current_course"
+        android:id="@+id/current_wallet_course"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="91dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buy_button"
+        android:text="@string/buy"
+        android:layout_alignTop="@+id/sell_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onBuyClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sell_button"
+        android:text="@string/sell"
+        android:layout_marginTop="87dp"
+        android:layout_below="@+id/rubles_amount"
+        android:layout_alignRight="@+id/rubles_name"
+        android:layout_alignEnd="@+id/rubles_name"
+        android:onClick="onSellClick"/>
+
+</RelativeLayout>

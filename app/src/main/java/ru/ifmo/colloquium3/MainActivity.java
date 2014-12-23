@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import ru.ifmo.colloquium3.adapter.WalletsCursorAdapter;
@@ -50,6 +52,18 @@ public class MainActivity extends ActionBarActivity
                 projection, null, null, null);
         walletsAdapter = new WalletsCursorAdapter(this, cursor);
         walletsList.setAdapter(walletsAdapter);
+
+        final Intent intent = new Intent(this, WalletExchangeActivity.class);
+        walletsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = walletsAdapter.getCursor();
+                String walletName = cursor.getString(cursor.getColumnIndex(DatabaseHelper.WALLET_NAME_KEY));
+                intent.putExtra(WalletExchangeActivity.WALLET_NAME_EXTRA,
+                        walletName);
+                startActivity(intent);
+            }
+        });
     }
 
     private boolean isMyServiceRunning(Class<?> serviceClass) {
