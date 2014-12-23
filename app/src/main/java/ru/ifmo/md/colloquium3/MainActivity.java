@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
@@ -14,16 +15,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import ru.ifmo.md.colloquium3.database.CurrencyContract;
+import ru.ifmo.md.colloquium3.database.MyContentObserver;
 
 
-public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>,MyContentObserver.Callbacks {
 
     private static final int LOADER_CURRENCIES = 1;
 
     private CursorAdapter mCursorAdapter;
+    private MyContentObserver mObserver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +50,38 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
         };
 
         setListAdapter(mCursorAdapter);
-
         getLoaderManager().initLoader(LOADER_CURRENCIES, Bundle.EMPTY, this);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mObserver == null) {
+            mObserver = new MyContentObserver(this);
+        }
+        CurrencyService.setServiceAlarm(getApplicationContext(), true);
+        getContentResolver().registerContentObserver(
+                CurrencyContract.Currency.CONTENT_URI, true, mObserver);
+        getLoaderManager().initLoader(LOADER_CURRENCIES, null, this).forceLoad();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CurrencyService.setServiceAlarm(getApplicationContext(), false);
+        getContentResolver().unregisterContentObserver(mObserver);
+        if (mObserver != null) {
+            mObserver = null;
+        }
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+        Intent detailIntent = new Intent(this, BuySellActivity.class);
+        detailIntent.putExtra(BuySellActivity.EXTRA_CURRENCY_ID, id);
+        startActivity(detailIntent);
     }
 
 
@@ -92,5 +125,10 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
+    }
+
+    @Override
+    public void onObserverFired() {
+        getLoaderManager().initLoader(LOADER_CURRENCIES, Bundle.EMPTY, this).forceLoad();
     }
 }

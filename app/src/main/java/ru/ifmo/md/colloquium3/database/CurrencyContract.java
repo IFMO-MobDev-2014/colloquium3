@@ -23,6 +23,11 @@ public class CurrencyContract {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendEncodedPath(PATH_CURRENCY).build();
 
+        public static final String[] CNT_COLUMNS = {
+                BaseColumns._ID,
+                CURRENCY_CNT
+        };
+
         public static Uri buildCurrencyUri(String currencyId) {
             return CONTENT_URI.buildUpon().appendPath(currencyId).build();
         }

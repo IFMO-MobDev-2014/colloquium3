@@ -23,6 +23,16 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+
+        <service
+            android:name=".CurrencyService"
+            android:exported="false" >
+        </service>
+
+        <activity
+            android:name=".BuySellActivity"
+            android:label="@string/title_activity_buy_sell" >
+        </activity>
     </application>
 
 </manifest>
