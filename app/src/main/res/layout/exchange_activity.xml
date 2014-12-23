@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="35sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exchange_to"/>
+
+    <TextView
+        android:paddingStart="15dp"
+        android:textSize="35sp"
+        android:layout_toEndOf="@id/exchange_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exchange_to_amount"/>
+
+    <TextView
+        android:textSize="35sp"
+        android:paddingStart="65dp"
+        android:layout_toEndOf="@id/exchange_to_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RUB"
+        android:id="@+id/exchange_from"/>
+
+    <TextView
+        android:textSize="35sp"
+        android:paddingStart="15dp"
+        android:layout_toEndOf="@id/exchange_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exchange_from_amount"/>
+
+    <TextView
+        android:textSize="50sp"
+        android:text="45"
+        android:paddingTop="70dp"
+        android:gravity="center"
+        android:layout_below="@+id/exchange_to_amount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_rate"/>
+
+    <Button
+        android:text="@string/buy"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/buy_button"
+        android:layout_alignTop="@+id/sell_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="37dp"
+        android:onClick="onBuyClicked"/>
+
+    <Button
+        android:text="@string/sell"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/sell_button"
+        android:layout_toEndOf="@+id/exchange_from"
+        android:layout_below="@+id/current_rate"
+        android:layout_marginTop="105dp"
+        android:onClick="onSellClicked"/>
+
+</RelativeLayout>

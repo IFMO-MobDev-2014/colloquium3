@@ -1,4 +1,4 @@
-package ru.ifmo.md.colloquium3;
+package ru.ifmo.mobdev.colloquium3;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
