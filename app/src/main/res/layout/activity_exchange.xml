@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="ru.ifmo.md.colloquium3.ExchangeActivity">
+
+    <LinearLayout
+        android:id="@+id/exchange_currency_layout"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView android:text="USD"
+            android:id="@+id/exchange_currency_name"
+            android:textSize="36sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/exchange_currency_rate"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="100"
+            android:textSize="36sp"
+            ></TextView>
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/exchange_currency2_layout">
+        <TextView android:text="RUB"
+            android:id="@+id/exchange_currency2_name"
+            android:textSize="36sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/exchange_currency2_rate"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:textSize="36sp"
+            ></TextView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_buy_text"
+        android:textSize="40sp"
+        android:onClick="buyVoid"
+        android:layout_below="@+id/exchange_currency_layout"/>
+
+    <Button
+        android:id="@+id/button_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_sell_text"
+        android:textSize="40sp"
+        android:onClick="sellVoid"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/exchange_currency2_layout"/>
+
+</RelativeLayout>
