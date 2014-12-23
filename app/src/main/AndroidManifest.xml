@@ -16,6 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".MoneyProvider"
+            android:authorities="ru.ifmo.md.colloqium3.moneyProvider"
+            />
+
+        <service android:name=".MoneyUpdateIntent"></service>
+        <activity
+            android:name=".ExchangeActivity"
+            android:label="@string/title_activity_exchange" >
+        </activity>
     </application>
 
 </manifest>
