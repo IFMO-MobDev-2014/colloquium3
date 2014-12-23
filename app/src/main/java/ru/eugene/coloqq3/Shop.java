@@ -26,7 +26,7 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         cur_name = getIntent().getStringExtra(CountDataSource.COLUMN_NAME);
-        ((TextView) findViewById(R.id.name)).setText(cur_name);
+        ((TextView) findViewById(R.id.name)).setText(cur_name + ": ");
 
         getLoaderManager().initLoader(1, null, this);
     }
@@ -39,15 +39,17 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         cursor = data;
+        Log.i("LOG", cur_name);
+        Log.i("LOG", interesting_name);
         if (cursor.moveToFirst()) {
             do {
                 String t = cursor.getString(cursor.getColumnIndex(CountDataSource.COLUMN_NAME));
+                Log.i("LOG", t);
+                String cur_count = cursor.getString(cursor.getColumnIndex(CountDataSource.COLUMN_COUNT));
                 if (t.equals(cur_name)) {
-                    ((TextView) findViewById(R.id.count)).setText(getIntent().getStringExtra(CountDataSource.COLUMN_COUNT));
-
+                    ((TextView) findViewById(R.id.count)).setText(cur_count);
                 } else if (t.equals(interesting_name)) {
-                    ((TextView) findViewById(R.id.count_rub)).setText(getIntent().getStringExtra(CountDataSource.COLUMN_COUNT));
-
+                    ((TextView) findViewById(R.id.count_rub)).setText(cur_count);
                 }
             } while (cursor.moveToNext());
         }
