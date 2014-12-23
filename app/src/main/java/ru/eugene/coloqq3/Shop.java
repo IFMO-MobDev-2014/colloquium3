@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -12,22 +13,29 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ru.eugene.coloqq3.db.BlackProvider;
 import ru.eugene.coloqq3.db.CountDataSource;
 import ru.eugene.coloqq3.db.MoneyDataSource;
 
-
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
     Cursor cursor;
-    String cur_name;
+    String currentName;
     public static final String interesting_name = "RUB";
     Context context;
-    TextView curCount;
+    TextView curCourse;
+    TextView count;
+    TextView countRub;
+    Button buy;
+    Button sell;
+    double currentCourse;
+    double currentCount;
+    double currentCountRub;
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
 
@@ -35,12 +43,12 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
         @Override
         public void onReceive(Context context, Intent intent) {
             Cursor cursor = context.getContentResolver().query(BlackProvider.CONTENT_URI_MONEY, MoneyDataSource.getProjection(),
-                    MoneyDataSource.COLUMN_NAME + "=?", new String[]{cur_name}, null);
+                    MoneyDataSource.COLUMN_NAME + "=?", new String[]{currentName}, null);
 
             cursor.moveToFirst();
-            Log.i("LOG", cursor.getCount() + "a");
-            double t = cursor.getDouble(cursor.getColumnIndex(MoneyDataSource.COLUMN_COURSE));
-            curCount.setText(Double.toString(t));
+            currentCourse = cursor.getDouble(cursor.getColumnIndex(MoneyDataSource.COLUMN_COURSE));
+            currentCourse = ((int) (currentCourse * 100)) / 100.0;
+            curCourse.setText(Double.toString(currentCourse));
         }
     };
 
@@ -48,10 +56,64 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-        cur_name = getIntent().getStringExtra(CountDataSource.COLUMN_NAME);
-        ((TextView) findViewById(R.id.name)).setText(cur_name + ": ");
+        currentName = getIntent().getStringExtra(CountDataSource.COLUMN_NAME);
+        ((TextView) findViewById(R.id.name)).setText(currentName + ": ");
         context = this;
-        curCount = ((TextView) findViewById(R.id.cur_course));
+
+        curCourse = ((TextView) findViewById(R.id.cur_course));
+        count = ((TextView) findViewById(R.id.count));
+        countRub = ((TextView) findViewById(R.id.count_rub));
+
+        buy = (Button) findViewById(R.id.buy);
+        sell = (Button) findViewById(R.id.sell);
+
+        sell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentCount = currentCount - 1.0 / currentCourse;
+                if (currentCount < 0) {
+                    Toast.makeText(context, "too few money =(", Toast.LENGTH_SHORT).show();
+                    currentCount = currentCount + 1.0 / currentCourse;
+                    return;
+                }
+                ContentValues values = new ContentValues();
+                values.put(CountDataSource.COLUMN_COUNT, currentCount);
+                getContentResolver().update(BlackProvider.CONTENT_URI_COUNT, values, CountDataSource.COLUMN_NAME + "=?",
+                        new String[] {currentName});
+
+                values.clear();
+                currentCountRub++;
+                values.put(CountDataSource.COLUMN_COUNT, currentCountRub);
+                getContentResolver().update(BlackProvider.CONTENT_URI_COUNT, values, CountDataSource.COLUMN_NAME + "=?",
+                        new String[] {interesting_name});
+
+                values.clear();
+
+            }
+        });
+
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentCountRub = currentCountRub - currentCourse;
+                if (currentCountRub < 0) {
+                    Toast.makeText(context, "too few money =(", Toast.LENGTH_SHORT).show();
+                    currentCountRub = currentCountRub + currentCourse;
+                    return;
+                }
+                ContentValues values = new ContentValues();
+                values.put(CountDataSource.COLUMN_COUNT, currentCountRub);
+                getContentResolver().update(BlackProvider.CONTENT_URI_COUNT, values, CountDataSource.COLUMN_NAME + "=?",
+                        new String[] {interesting_name});
+
+                values.clear();
+                currentCount++;
+                values.put(CountDataSource.COLUMN_COUNT, currentCount);
+                getContentResolver().update(BlackProvider.CONTENT_URI_COUNT, values, CountDataSource.COLUMN_NAME + "=?",
+                        new String[] {currentName});
+
+            }
+        });
 
         getLoaderManager().initLoader(1, null, this);
     }
@@ -76,21 +138,20 @@ public class Shop extends Activity implements LoaderManager.LoaderCallbacks<Curs
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         cursor = data;
-        Log.i("LOG", cur_name);
-        Log.i("LOG", interesting_name);
         if (cursor.moveToFirst()) {
             do {
                 String t = cursor.getString(cursor.getColumnIndex(CountDataSource.COLUMN_NAME));
-                Log.i("LOG", t);
-                String cur_count = cursor.getString(cursor.getColumnIndex(CountDataSource.COLUMN_COUNT));
-                if (t.equals(cur_name)) {
-                    ((TextView) findViewById(R.id.count)).setText(cur_count);
+                double cur_count = cursor.getDouble(cursor.getColumnIndex(CountDataSource.COLUMN_COUNT));
+                cur_count = ((int) (cur_count * 100)) / 100.0;
+                if (t.equals(currentName)) {
+                    currentCount = cur_count;
+                    count.setText(Double.toString(cur_count));
                 } else if (t.equals(interesting_name)) {
-                    ((TextView) findViewById(R.id.count_rub)).setText(cur_count);
+                    currentCountRub = cur_count;
+                    countRub.setText(Double.toString(cur_count));
                 }
             } while (cursor.moveToNext());
         }
-        Log.i("LOG", "finish Shop");
     }
 
     @Override

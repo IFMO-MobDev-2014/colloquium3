@@ -4,14 +4,15 @@ import android.annotation.TargetApi;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import ru.eugene.coloqq3.db.MoneyDataSource;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     SimpleCursorAdapter adapter;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,16 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
         adapter = new SimpleCursorAdapter(this, R.layout.item_list_view, null, from, to, 0);
         getListView().setAdapter(adapter);
 
-        startService(new Intent(this, CourseService.class));
         getLoaderManager().initLoader(1, null, this);
+        context = this;
+
+        ((Button) findViewById(R.id.account)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent account = new Intent(context, Account.class);
+                startActivity(account);
+            }
+        });
     }
 
     @Override
@@ -55,7 +65,6 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         adapter.swapCursor(data);
-//        Log.i("LOG", "first: " + data.getString(data.getColumnIndex(MoneyDataSource.COLUMN_NAME)) + "");
         if (data.getCount() == 0) {
             insert_money("USD", 54);
             insert_money("EUR", 65);
@@ -66,6 +75,8 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
             insert_count("GBP", 0);
             insert_count("RUB", 10000);
         }
+
+        startService(new Intent(this, CourseService.class));
     }
 
     private void insert_count(String name, int count) {
