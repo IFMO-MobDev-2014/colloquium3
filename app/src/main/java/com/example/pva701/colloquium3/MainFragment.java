@@ -33,8 +33,10 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
         public CourseArrayAdapter(Context context, Cursor cursor) {
             super(context, R.layout.course_view);
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            while (!cursor.isAfterLast())
+            while (!cursor.isAfterLast()) {
                 add(CurrencyDbHelper.CourseCursor.getCourse(cursor));
+                cursor.moveToNext();
+            }
         }
 
         @Override

@@ -21,19 +21,7 @@ public class CurrencyDbHelper extends SQLiteOpenHelper {
     public static final String COURSE_NAME = "name";
     public static final String COURSE_VAL = "value";
 
-    public static final String TABLE_TOTAL = "forecast";
-    public static final String FORECAST_ID = "_id";
-    public static final String FORECAST_TEMP_MIN = "temp_min";
-    public static final String FORECAST_TEMP_MAX = "temp_max";
-    public static final String FORECAST_TEMP = "temp";
-    public static final String FORECAST_WIND_SPEED = "wind_speed";
-    public static final String FORECAST_HUMIDITY = "humidity";
-    public static final String FORECAST_WEATHER_MAIN = "weather_main";
-    public static final String FORECAST_WEATHER_DESCRIPTION = "weather_description";
-    public static final String FORECAST_ICON = "icon";
-    public static final String FORECAST_DATE = "date";
-    public static final String FORECAST_CONDITION_CODE = "condition_code";
-    public static final String FORECAST_CITY_ID = "city_id";
+    public static final String TABLE_TOTAL = "total";
 
 
     public static class CourseCursor extends CursorWrapper {

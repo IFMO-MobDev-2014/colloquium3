@@ -15,11 +15,15 @@ public class CurrencyProvider extends ContentProvider {
     public static final String AUTHORITY = "com.example.pva701.colloquium3.provider.CurrencyProvider";
     public static final String COURSE_PATH = CurrencyDbHelper.TABLE_COURSE;
     public static final String TOTAL_PATH = CurrencyDbHelper.TABLE_TOTAL;
+    public static final String ADD_COURSE_PATH = "add_course";
 
     public static final Uri COURSE_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + COURSE_PATH);
     public static final Uri TOTAL_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + TOTAL_PATH);
+    public static final Uri ADD_COURSE_CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + ADD_COURSE_PATH);
+
     public static final int URI_COURSE_ID = 1;
     public static final int URI_TOTAL_ID = 2;
+    public static final int ADD_URI_COURSE_ID = 3;
 
     static final String CITY_CONTENT_TYPE = "vnd.android.cursor.dir/vnd." + AUTHORITY + "." + COURSE_PATH;
     static final String FORECAST_CONTENT_TYPE = "vnd.android.cursor.dir/vnd." + AUTHORITY + "." + COURSE_PATH;
@@ -29,6 +33,7 @@ public class CurrencyProvider extends ContentProvider {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(AUTHORITY, COURSE_PATH, URI_COURSE_ID);
         uriMatcher.addURI(AUTHORITY, TOTAL_PATH, URI_TOTAL_ID);
+        uriMatcher.addURI(AUTHORITY, ADD_COURSE_PATH, ADD_URI_COURSE_ID);
     }
     private CurrencyDbHelper dbHelper;
 
@@ -100,10 +105,13 @@ public class CurrencyProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        int cnt;
+        int cnt = 1;
         if (uriMatcher.match(uri) == URI_COURSE_ID)
             cnt = dbHelper.getWritableDatabase().update(CurrencyDbHelper.TABLE_COURSE, values, selection, selectionArgs);
-        else
+        else if (uriMatcher.match(uri) == ADD_URI_COURSE_ID) {
+            dbHelper.getWritableDatabase().execSQL("UPDATE " + CurrencyDbHelper.TABLE_COURSE +
+                    " SET " + CurrencyDbHelper.COURSE_VAL + " + " + values.get("add") + " WHERE " + selection);
+        } else
             cnt = dbHelper.getWritableDatabase().update(CurrencyDbHelper.TABLE_TOTAL, values, selection, selectionArgs);
         getContext().getContentResolver().notifyChange(uri, null);
         return cnt;

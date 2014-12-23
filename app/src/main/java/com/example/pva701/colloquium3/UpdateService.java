@@ -8,6 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.pva701.colloquium3.provider.QueryManager;
+
+import java.util.Random;
+
 /**
  * Created by pva701 on 23.12.14.
  */
@@ -17,6 +21,7 @@ public class UpdateService extends IntentService {
 
     public static int CURRENCY_UPDATED = 0;
     public static int cnt = 0;
+    public static Random rnd = new Random(System.currentTimeMillis());
 
     public UpdateService() {
         super(TAG);
@@ -26,10 +31,17 @@ public class UpdateService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         ++cnt;
         if (cnt % 10 == 0) {
-
+            double array[] = new double[QueryManager.get(getApplicationContext()).sizeCourse()];
+            for (int i = 0; i < array.length; ++i)
+                array[i] = (rnd.nextBoolean() ? -0.5 : 0.5);
+            QueryManager.get(getApplicationContext()).addCourses(array);
         } else {
-
+            double array[] = new double[QueryManager.get(getApplicationContext()).sizeCourse()];
+            for (int i = 0; i < array.length; ++i)
+                array[i] = rnd.nextDouble() - 0.5;
+            QueryManager.get(getApplicationContext()).addCourses(array);
         }
+
         if (handler != null)
             handler.obtainMessage(UpdateService.CURRENCY_UPDATED).sendToTarget();
     }
