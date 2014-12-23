@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.achep.header2actionbardemo.MainActivity">
+
+    <!--<item android:id="@+id/action_locate"-->
+          <!--android:title="Locate"-->
+          <!--android:icon="@drawable/gps"-->
+          <!--android:showAsAction="never"/>-->
+    <item android:id="@+id/action_wallet"
+          android:title="Wallet"/>
+</menu>

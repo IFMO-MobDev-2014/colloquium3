@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/volhovm/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.4/734ac63e470706015ea786f7780c80db49f001a4/scala-library-2.11.4.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="734ac63e470706015ea786f7780c80db49f001a4">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/scala-library-2.11.4-455864dd7faa0bd25995a083ef17e5cd88c595bc.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.nix-profile/libexec/android-sdk-linux/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/pre-dexed/debug/support-v13-19.1.0-51f1d814d2f578443417b574b91014704a784455.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.nix-profile/libexec/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-39a8e91f2d8263c8747b784a2e75f247d4a561bb.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.4/734ac63e470706015ea786f7780c80db49f001a4/scala-library-2.11.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="734ac63e470706015ea786f7780c80db49f001a4">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/pre-dexed/debug/scala-library-2.11.4-455864dd7faa0bd25995a083ef17e5cd88c595bc.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/classes-79620a789d34524830cf21b4ab2acaf12d2df72c.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.nix-profile/libexec/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-39a8e91f2d8263c8747b784a2e75f247d4a561bb.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.nix-profile/libexec/android-sdk-linux/extras/android/m2repository/com/android/support/support-v13/19.1.0/support-v13-19.1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6b852a232f642c75a7fdfc7212b841b8c8f8959c">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/support-v13-19.1.0-51f1d814d2f578443417b574b91014704a784455.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/pre-dexed/debug/classes-567cfba8cbe73f3d53ccfa37958e62e29d394c40.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/libs/Header2ActionBar-0.2.1.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="10177db0cadad540e0c80072d3766cb2eaa1b2e3">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/Header2ActionBar-0.2.1-bba0ac31aff26be2a6768c12e2fb1ee9b5ec1a96.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/libs/Header2ActionBar-0.2.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="10177db0cadad540e0c80072d3766cb2eaa1b2e3">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/Header2ActionBar-0.2.1-bba0ac31aff26be2a6768c12e2fb1ee9b5ec1a96.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/.gradle/caches/modules-2/files-2.1/org.scala-lang/scala-library/2.11.4/734ac63e470706015ea786f7780c80db49f001a4/scala-library-2.11.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="734ac63e470706015ea786f7780c80db49f001a4">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/lesson8/app/build/intermediates/pre-dexed/debug/scala-library-2.11.4-455864dd7faa0bd25995a083ef17e5cd88c595bc.jar" />
+    </item>
+    <item
+        jar="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/libs/Header2ActionBar-0.2.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="10177db0cadad540e0c80072d3766cb2eaa1b2e3">
+        <dex dex="/home/volhovm/Dropbox/Code/Android-III-2014/colloquium3/app/build/intermediates/pre-dexed/debug/Header2ActionBar-0.2.1-08e291154de3ba7b4eb3fdaa52e870c1ab0e4692.jar" />
+    </item>
+
+</items>
