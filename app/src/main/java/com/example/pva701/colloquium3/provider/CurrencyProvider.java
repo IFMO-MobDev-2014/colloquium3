@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 public class CurrencyProvider extends ContentProvider {
     public static final String LOG_TAG = "CurrencyProvider";
@@ -91,6 +92,7 @@ public class CurrencyProvider extends ContentProvider {
         //Log.i(LOG_TAG, "query, " + uri.toString());
         int m = uriMatcher.match(uri);
         Cursor cursor;
+        Log.i("ContentProvider", "id = " + m);
         if (m == URI_COURSE_ID) {
             cursor = dbHelper.getReadableDatabase().query(CurrencyDbHelper.TABLE_COURSE, projection, selection, selectionArgs, null, null, sortOrder);
             cursor.setNotificationUri(getContext().getContentResolver(), COURSE_CONTENT_URI);
@@ -110,7 +112,7 @@ public class CurrencyProvider extends ContentProvider {
             cnt = dbHelper.getWritableDatabase().update(CurrencyDbHelper.TABLE_COURSE, values, selection, selectionArgs);
         else if (uriMatcher.match(uri) == ADD_URI_COURSE_ID) {
             dbHelper.getWritableDatabase().execSQL("UPDATE " + CurrencyDbHelper.TABLE_COURSE +
-                    " SET " + CurrencyDbHelper.COURSE_VAL + " + " + values.get("add") + " WHERE " + selection);
+                    " SET " + CurrencyDbHelper.COURSE_VAL + " = " + CurrencyDbHelper.COURSE_VAL + " + " + values.get("add") + " WHERE " + selection);
         } else
             cnt = dbHelper.getWritableDatabase().update(CurrencyDbHelper.TABLE_TOTAL, values, selection, selectionArgs);
         getContext().getContentResolver().notifyChange(uri, null);

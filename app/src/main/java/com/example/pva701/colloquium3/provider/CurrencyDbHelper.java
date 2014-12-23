@@ -31,7 +31,7 @@ public class CurrencyDbHelper extends SQLiteOpenHelper {
             cursor = cur;
         }
 
-        public Course getCity() {
+        public Course getCourse() {
             return getCourse(cursor);
 
         }
@@ -39,9 +39,9 @@ public class CurrencyDbHelper extends SQLiteOpenHelper {
 
         public static Course getCourse(Cursor cur) {
             return new Course(
-                    cur.getInt(cur.getColumnIndex(COURSE_ID)),
-                    cur.getString(cur.getColumnIndex(COURSE_NAME)),
-                    cur.getDouble(cur.getColumnIndex(COURSE_VAL)));
+                    cur.getInt(0),
+                    cur.getString(1),
+                    cur.getDouble(2));
 
         }
     }
@@ -52,7 +52,7 @@ public class CurrencyDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table city (_id integer primary key autoincrement, " +
+        db.execSQL("create table course (_id integer primary key autoincrement, " +
                 "name varchar(64), " +
                 "value double)");
 
