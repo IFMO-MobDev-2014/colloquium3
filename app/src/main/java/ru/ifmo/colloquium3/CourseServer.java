@@ -22,12 +22,14 @@ public class CourseServer extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Random random = new Random();
+        int it = 0;
         while (true) { // TODO: Make it better
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ignore) {
 
             }
+            it++;
             String[] projection = {
                     DatabaseHelper.ID_KEY,
                     DatabaseHelper.WALLET_NAME_KEY,
@@ -47,6 +49,13 @@ public class CourseServer extends IntentService {
                         delta *= -1;
                     }
                     newValue += delta;
+                    if (it % 10 == 0) {
+                        delta = random.nextDouble();
+                        if (random.nextBoolean()) {
+                            delta *= -1;
+                        }
+                        newValue += delta;
+                    }
                     contentValues.put(DatabaseHelper.WALLET_VALUE_KEY, newValue);
                     String selection = DatabaseHelper.ID_KEY + " = ?";
                     String[] args = { id + "" };
