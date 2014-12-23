@@ -8,11 +8,12 @@ import android.content.Intent;
  */
 public class CourseServer extends IntentService {
     public CourseServer() {
-        super("ru.ifmo.colloquium3.CourseServer");
+        super("ru.ifmo.colloquium3.Courser");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
 
     }
+
 }

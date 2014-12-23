@@ -1,19 +1,39 @@
 package ru.ifmo.colloquium3;
 
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import ru.ifmo.colloquium3.adapter.WalletsCursorAdapter;
+import ru.ifmo.colloquium3.db.DatabaseHelper;
+import ru.ifmo.colloquium3.db.MyContentProvider;
 
 
 public class MainActivity extends ActionBarActivity {
+    private ListView walletsList;
+    private WalletsCursorAdapter walletsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
+        walletsList = (ListView) findViewById(R.id.wallets_list);
+
+        String[] projection = {
+                DatabaseHelper.ID_KEY,
+                DatabaseHelper.WALLET_NAME_KEY,
+                DatabaseHelper.WALLET_VALUE_KEY
+        };
+        Cursor cursor = getContentResolver().query(
+                MyContentProvider.WALLETS_URI,
+                projection, null, null, null);
+        walletsAdapter = new WalletsCursorAdapter(this, cursor);
+        walletsList.setAdapter(walletsAdapter);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
