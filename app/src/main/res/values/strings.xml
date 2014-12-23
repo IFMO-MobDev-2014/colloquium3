@@ -5,4 +5,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="buy">Buy</string>
+    <string name="sell">Sell</string>
+
+    <string name="fake_value">FAKE</string>
+
+    <string name="rub">RUB</string>
+    <string name="usd">USD</string>
+    <string name="eur">EUR</string>
+    <string name="kzt">KZT</string>
+
 </resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/valuta_container"
+    android:background="@drawable/selector_valuta"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:clickable="true" >
+
+    <TextView
+        android:id="@+id/valuta_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="start"
+        android:textSize="@dimen/valuta_text_size"
+        android:text="@string/fake_value"/>
+
+    <TextView
+        android:id="@+id/valuta_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="end"
+        android:textSize="@dimen/valuta_text_size"
+        android:text="@string/fake_value" />
+</LinearLayout>
