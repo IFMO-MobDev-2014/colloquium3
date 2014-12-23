@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:authorities="ru.ifmo.md.colloquium3.provider"
+            android:name=".MyContentProvider" >
+        </provider>
     </application>
 
 </manifest>
