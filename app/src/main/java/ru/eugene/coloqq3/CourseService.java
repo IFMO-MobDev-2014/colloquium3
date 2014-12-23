@@ -16,6 +16,7 @@ import ru.eugene.coloqq3.db.MoneyDataSource;
  */
 public class CourseService extends IntentService {
     private static final long TIME1 = 1000;
+    private static final String NOTIFICATION = "ayxayyayay";
     private int countTime = 0;
     private double[] count;
     private int[] id;
@@ -61,6 +62,8 @@ public class CourseService extends IntentService {
                     }
                 }
                 updCourse();
+                Intent intent2 = new Intent(NOTIFICATION);
+                sendBroadcast(intent2);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
