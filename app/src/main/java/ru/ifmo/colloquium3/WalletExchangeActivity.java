@@ -1,10 +1,13 @@
 package ru.ifmo.colloquium3;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import org.apache.http.impl.client.DefaultProxyAuthenticationHandler;
 
 import ru.ifmo.colloquium3.db.DatabaseHelper;
 import ru.ifmo.colloquium3.db.MyContentProvider;
@@ -108,9 +113,47 @@ public class WalletExchangeActivity extends ActionBarActivity {
     }
 
     public void onBuyClick(View view) {
+        changeAmount(1);
+    }
+
+    private void changeAmount(int delta) {
+        String[] projection = {
+                DatabaseHelper.ID_KEY,
+                DatabaseHelper.WALLET_ID_KEY,
+                DatabaseHelper.WALLET_AMOUNT_KEY
+        };
+        String selection = DatabaseHelper.WALLET_ID_KEY + " = ?";
+        String[] selectionArgsCurrent = {
+            walletName
+        };
+        String[] selectionArgsRubles = {
+            "RUB"
+        };
+        String[] projectionCost = { DatabaseHelper.WALLET_VALUE_KEY };
+        Cursor cost = getContentResolver().query(MyContentProvider.WALLETS_URI, projectionCost, null, null, null);
+        cost.moveToFirst();
+        double currentCost = cost.getDouble(cost.getColumnIndex(DatabaseHelper.WALLET_VALUE_KEY));
+        Cursor cursorCurrent = getContentResolver().query(MyContentProvider.MONEY_URI, projection, selection, selectionArgsCurrent, null);
+        Cursor cursorRubles = getContentResolver().query(MyContentProvider.MONEY_URI, projection, selection, selectionArgsRubles, null);
+        cursorCurrent.moveToFirst();
+        cursorRubles.moveToFirst();
+
+        ContentValues values = new ContentValues();
+        DatabaseUtils.cursorRowToContentValues(cursorCurrent, values);
+        values.put(DatabaseHelper.WALLET_AMOUNT_KEY,
+                values.getAsDouble(DatabaseHelper.WALLET_AMOUNT_KEY) + delta);
+        getContentResolver().update(MyContentProvider.MONEY_URI, values, DatabaseHelper.ID_KEY + " = ?",
+                new String[] { values.getAsString(DatabaseHelper.ID_KEY)});
+        values.clear();
+        DatabaseUtils.cursorRowToContentValues(cursorRubles, values);
+        values.put(DatabaseHelper.WALLET_AMOUNT_KEY,
+                values.getAsDouble(DatabaseHelper.WALLET_AMOUNT_KEY) - delta * currentCost);
+        getContentResolver().update(MyContentProvider.MONEY_URI, values, DatabaseHelper.ID_KEY + " = ?",
+                new String[] { values.getAsString(DatabaseHelper.ID_KEY)});
     }
 
     public void onSellClick(View view) {
+        changeAmount(-1);
     }
 
     private static abstract class WalletCursorLoader implements LoaderManager.LoaderCallbacks<Cursor> {

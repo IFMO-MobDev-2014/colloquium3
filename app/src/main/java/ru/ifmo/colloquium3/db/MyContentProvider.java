@@ -193,6 +193,12 @@ public class MyContentProvider extends ContentProvider {
                         selection,
                         selectionArgs);
                 break;
+            case URI_ALL_MONEY:
+                rowsUpdated = db.update(DatabaseHelper.MONEY_TABLE,
+                        values,
+                        selection,
+                        selectionArgs);
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
