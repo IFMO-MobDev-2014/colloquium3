@@ -1,8 +1,15 @@
 package ru.ifmo.colloquium3;
 
+import android.app.ActivityManager;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -12,18 +19,28 @@ import ru.ifmo.colloquium3.db.DatabaseHelper;
 import ru.ifmo.colloquium3.db.MyContentProvider;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity
+        implements LoaderManager.LoaderCallbacks<Cursor> {
+
     private ListView walletsList;
     private WalletsCursorAdapter walletsAdapter;
+    private String[] projection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (!isMyServiceRunning(CourseServer.class)) {
+            Intent intent = new Intent(this, CourseServer.class);
+            startService(intent);
+        }
+
+        getLoaderManager().initLoader(0, null, this);
+
         walletsList = (ListView) findViewById(R.id.wallets_list);
 
-        String[] projection = {
+        projection = new String[] {
                 DatabaseHelper.ID_KEY,
                 DatabaseHelper.WALLET_NAME_KEY,
                 DatabaseHelper.WALLET_VALUE_KEY
@@ -33,6 +50,16 @@ public class MainActivity extends ActionBarActivity {
                 projection, null, null, null);
         walletsAdapter = new WalletsCursorAdapter(this, cursor);
         walletsList.setAdapter(walletsAdapter);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -55,5 +82,22 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, MyContentProvider.WALLETS_URI,
+                projection, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        Log.d("LoadFinished", "");
+        walletsAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        walletsAdapter.swapCursor(null);
     }
 }

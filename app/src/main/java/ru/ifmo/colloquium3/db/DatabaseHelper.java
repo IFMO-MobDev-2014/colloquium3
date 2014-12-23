@@ -9,10 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  * @author Zakhar Voit (zakharvoit@gmail.com)
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
     private static final String DB_NAME = "colloquium3db";
     public static final String ID_KEY = "_id";
-    public static final String ID_KEY_TYPE = "integer primary key";
+    public static final String ID_KEY_TYPE = "integer primary key autoincrement";
     public static final String WALLETS_TABLE = "wallets";
     public static final String MONEY_TABLE = "money";
 
@@ -42,7 +42,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(WALLET_NAME_KEY, "USD");
         contentValues.put(WALLET_VALUE_KEY, 54.0);
         db.insert(WALLETS_TABLE, null, contentValues);
-
         contentValues.clear();
         contentValues.put(WALLET_NAME_KEY, "EUR");
         contentValues.put(WALLET_VALUE_KEY, 65.0);
